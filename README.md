@@ -12,14 +12,14 @@
       --card: #1a1a1a;
     }
 
-    [data-theme="light"] {
+  [data-theme="light"] {
       --bg: #f5f5f5;
       --text: #003344;
       --accent: #0055ff;
       --card: #ffffff;
     }
 
-    body {
+   body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: var(--bg);
@@ -27,7 +27,7 @@
       transition: all 0.4s ease;
     }
 
-    header {
+  header {
       background: var(--card);
       padding: 20px;
       text-align: center;
@@ -39,7 +39,7 @@
       z-index: 100;
     }
 
-    #toggleTheme {
+   #toggleTheme {
       position: absolute;
       right: 20px;
       top: 20px;
@@ -52,17 +52,17 @@
       border-radius: 6px;
     }
 
-    main {
+  main {
       padding: 30px;
       max-width: 900px;
       margin: auto;
     }
 
-    h2 {
+  h2 {
       color: var(--accent);
     }
 
-    .upload-box {
+   .upload-box {
       border: 2px dashed var(--text);
       padding: 30px;
       border-radius: 12px;
@@ -71,11 +71,11 @@
       transition: 0.3s;
     }
 
-    input[type="file"] {
+  input[type="file"] {
       margin-top: 15px;
     }
 
-    button.action {
+   button.action {
       background: var(--accent);
       color: #000;
       padding: 10px 20px;
@@ -86,11 +86,11 @@
       margin-top: 15px;
     }
 
-    button.action:hover {
+   button.action:hover {
       background-color: #ff0;
     }
 
-    .results {
+   .results {
       margin-top: 40px;
       background: var(--card);
       padding: 20px;
@@ -99,18 +99,18 @@
       box-shadow: 0 0 15px var(--text);
     }
 
-    .results div {
+  .results div {
       margin: 8px 0;
     }
 
-    footer {
+   footer {
       text-align: center;
       padding: 40px 0 20px;
       font-size: 14px;
       color: #888;
     }
 
-    /* Optional animated background glow */
+   /* Optional animated background glow */
     body::before {
       content: "";
       position: fixed;
@@ -124,7 +124,7 @@
       opacity: 0.03;
     }
 
-    @keyframes glow {
+   @keyframes glow {
       0% { transform: scale(1); }
       100% { transform: scale(1.2); }
     }
