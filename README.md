@@ -1,77 +1,170 @@
-index.html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MyGameTwin</title>
+  <meta charset="UTF-8">
+  <title>GameTwin Arena</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: #ccc; line-height: 1.6; transition: background 0.3s, color 0.3s; }
-    header { background: #111; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-    header h1 { color: #00ffd5; }
-    nav a { color: #ccc; margin-left: 20px; text-decoration: none; transition: color 0.2s; }
-    nav a:hover { color: #00ffd5; }
-    .container { padding: 2rem; max-width: 1000px; margin: auto; }
-    section { margin: 3rem 0; }
-    .upload-box, .simulation-box, .leaderboard-box { background: #1a1a1a; padding: 2rem; border-radius: 10px; box-shadow: 0 0 10px #00ffd533; }
-    input[type="file"] { background: #222; color: #ccc; border: 1px solid #444; padding: 0.5rem; border-radius: 5px; }
-    button { background: #00ffd5; color: #000; border: none; padding: 0.7rem 1.5rem; border-radius: 5px; cursor: pointer; margin-top: 1rem; }
-    .dark-mode-toggle { cursor: pointer; background: none; border: none; color: #00ffd5; font-size: 1rem; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { padding: 1rem; border-bottom: 1px solid #333; text-align: left; }
-    th { color: #00ffd5; }
-    footer { text-align: center; padding: 2rem; color: #555; font-size: 0.9rem; }
-    .dark body { background: #fff; color: #111; }
-    .dark header, .dark .upload-box, .dark .simulation-box, .dark .leaderboard-box { background: #f0f0f0; color: #111; }
-    .dark nav a { color: #111; }
+    :root {
+      --bg: #0e0e0e;
+      --text: #00ffee;
+      --accent: #ffee00;
+      --card: #1a1a1a;
+    }
+
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --text: #003344;
+      --accent: #0055ff;
+      --card: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: all 0.4s ease;
+    }
+
+    header {
+      background: var(--card);
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 0 12px var(--text);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    #toggleTheme {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 8px 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    main {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      color: var(--accent);
+    }
+
+    .upload-box {
+      border: 2px dashed var(--text);
+      padding: 30px;
+      border-radius: 12px;
+      background-color: var(--card);
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    input[type="file"] {
+      margin-top: 15px;
+    }
+
+    button.action {
+      background: var(--accent);
+      color: #000;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button.action:hover {
+      background-color: #ff0;
+    }
+
+    .results {
+      margin-top: 40px;
+      background: var(--card);
+      padding: 20px;
+      border-radius: 10px;
+      display: none;
+      box-shadow: 0 0 15px var(--text);
+    }
+
+    .results div {
+      margin: 8px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    /* Optional animated background glow */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, var(--accent), transparent 70%);
+      animation: glow 8s infinite alternate ease-in-out;
+      z-index: -1;
+      opacity: 0.03;
+    }
+
+    @keyframes glow {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>MyGameTwin</h1>
-    <nav>
-      <a href="#upload">Upload</a>
-      <a href="#simulate">Simulate</a>
-      <a href="#leaderboard">Leaderboard</a>
-      <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌓</button>
-    </nav>
+    🎮 GameTwin Arena
+    <button id="toggleTheme">Toggle Mode</button>
   </header>
 
-  <div class="container">
-    <section id="upload" class="upload-box">
-      <h2>🎥 Upload Your Gameplay</h2>
-      <p>Upload FC 25, Fortnite, or Valorant footage to train your AI clone.</p>
-      <input type="file" accept="video/*" />
-      <button>Start Clone Training</button>
-    </section>
+  <main>
+    <h2>Upload Your Gameplay</h2>
+    <p>Create your AI-powered game twin and simulate battles against other players.</p>
+  </main>
 
-    <section id="simulate" class="simulation-box">
-      <h2>🤖 Simulate Your Clone</h2>
-      <p>Preview a 1v1 simulation of your AI twin vs another player’s clone.</p>
-      <video controls width="100%" style="margin-top: 1rem;" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
-    </section>
-
-    <section id="leaderboard" class="leaderboard-box">
-      <h2>🏆 Top GameTwins</h2>
-      <table>
-        <thead>
-          <tr><th>Rank</th><th>Gamer</th><th>Game</th><th>Clone Rating</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>ShadowX</td><td>FC 25</td><td>98</td></tr>
-          <tr><td>2</td><td>NovaAim</td><td>Valorant</td><td>95</td></tr>
-          <tr><td>3</td><td>TurboBuildz</td><td>Fortnite</td><td>93</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </div>
-
-  <footer>© 2025 MyGameTwin — Built with game love 💙</footer>
+  <footer>© 2025 GameTwin Arena — Powered by AI & You</footer>
 
   <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
+    function showResults() {
+      const fileInput = document.getElementById('upload');
+      if (!fileInput.files.length) {
+        alert("Please upload a gameplay file first.");
+        return;
+      }
+      document.getElementById('results').style.display = 'block';
     }
+
+    // Theme toggle
+    const btn = document.getElementById('toggleTheme');
+    btn.addEventListener('click', () => {
+      const current = document.body.getAttribute("data-theme");
+      if (current === "light") {
+        document.body.removeAttribute("data-theme");
+      } else {
+        document.body.setAttribute("data-theme", "light");
+      }
+    });
   </script>
+
 </body>
 </html>
